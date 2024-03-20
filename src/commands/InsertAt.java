@@ -1,19 +1,17 @@
 package commands;
 
 import customexceptions.IncorrectDataInScript;
-import initials.HumanBeing;
 import utilities.Asker;
-
-import java.util.ArrayList;
+import utilities.HumanBeingList;
 /**
  * Команда 'insert_at'. Добавляет элемент в коллекцию по заданому индексу.
  * @author Ubica228
  */
 public class InsertAt extends Command{
-    private ArrayList<HumanBeing> humanBeings;
+    private HumanBeingList humanBeings;
     private Asker asker;
 
-    public InsertAt(ArrayList<HumanBeing> humanBeings, Asker asker){
+    public InsertAt(HumanBeingList humanBeings, Asker asker){
         super("insert_at","Добавляет людей в списочек по индексу");
         this.asker = asker;
         this.humanBeings = humanBeings;
@@ -26,15 +24,7 @@ public class InsertAt extends Command{
     public boolean execute(String[] arguments) {
         try{
             int index = Integer.parseInt(arguments[1]);
-            if (index-1 > humanBeings.size()) throw new IndexOutOfBoundsException();
-            int idPointer;
-            if (!humanBeings.isEmpty()) {
-                idPointer = humanBeings.get(humanBeings.size() - 1).getId();
-            }
-            else {
-                idPointer = 0;
-            }
-            humanBeings.add(index-1,asker.askHumanBeing(idPointer));
+            humanBeings.add(index-1,asker.askHumanBeing(humanBeings.idPointer));
         }
         catch (IncorrectDataInScript e){
             System.out.println("При добавлении нового HumanBeing произошла ошибка с комментарием - "+e.getMessage()+", проверьте скрипт");

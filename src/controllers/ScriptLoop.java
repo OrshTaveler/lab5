@@ -1,22 +1,25 @@
 package controllers;
 
 import commands.Command;
-import initials.HumanBeing;
 import utilities.Asker;
 import utilities.FileManager;
+import utilities.HumanBeingList;
 import utilities.InputGetter;
 
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 /**
  * Класс наследник ControlLoop. Получает команды из файла скрипта.
  * @author Ubica228
  */
 public class ScriptLoop extends ControlLoop {
     String currentPath;
-    ArrayList<HumanBeing> humanBeings;
+    HumanBeingList humanBeings;
 
-    public ScriptLoop(Map<String,Command> commands, Scanner scanner, Asker asker, String scriptPath, ArrayList<HumanBeing> humanBeings){
+    public ScriptLoop(Map<String,Command> commands, Scanner scanner, Asker asker, String scriptPath, HumanBeingList humanBeings){
         super(commands,scanner,asker,new InputGetter(scanner,true));
         this.currentPath = scriptPath;
         this.humanBeings = humanBeings;
@@ -42,7 +45,6 @@ public class ScriptLoop extends ControlLoop {
                     }
                     case ("execute_script") -> {
                         if (!commandInput[1].equals(this.currentPath)) {
-
                                 Scanner scriptScanner =  FileManager.getFileScanner(commandInput[1]);
                                 asker.changeScanner(scriptScanner);
 
@@ -50,7 +52,6 @@ public class ScriptLoop extends ControlLoop {
                                 work = scriptLoop.execute();
 
                                 asker.changeScanner(scanner);
-
                         }
                     }
                     default -> {
@@ -71,9 +72,6 @@ public class ScriptLoop extends ControlLoop {
                 System.out.println("Ошибка "+ e +" в скрипте - "+ Arrays.toString(commandInput));
                 return true;
             }
-
-
-
         }
         return work;
     }

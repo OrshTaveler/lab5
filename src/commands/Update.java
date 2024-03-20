@@ -1,19 +1,20 @@
 package commands;
 
 import customexceptions.IncorrectDataInScript;
-import initials.HumanBeing;
 import utilities.Asker;
+import utilities.HumanBeingList;
 
-import java.util.ArrayList;
+import java.util.NoSuchElementException;
+
 /**
  * Команда 'update'. Обновляет коллекцию, заменяя некоторый элемент на новый.
  * @author Ubica228
  */
 public class Update extends Command{
-    private ArrayList<HumanBeing> humanBeings;
+    private HumanBeingList humanBeings;
     private Asker asker;
 
-    public Update(ArrayList<HumanBeing> humanBeings, Asker asker){
+    public Update(HumanBeingList humanBeings, Asker asker){
         super("update","Обновляет людей в списочке");
         this.asker = asker;
         this.humanBeings = humanBeings;
@@ -26,15 +27,10 @@ public class Update extends Command{
     public boolean execute(String[] arguments) {
         try{
             int id = Integer.parseInt(arguments[1]);
-            for(int i = 0; i<humanBeings.size();i++){
-                if (humanBeings.get(i).getId() == id){
-                    humanBeings.remove(i);
-                    humanBeings.add(i,asker.askHumanBeing(id-1));
-                    return true;
-                }
-            }
-            System.out.println("Человека с таким id нет");
-            return false;
+            int index = humanBeings.getIndexById(id);
+            humanBeings.remove(humanBeings.getById(id));
+            humanBeings.add(index,asker.askHumanBeing(humanBeings.idPointer));
+            return true;
         }
         catch (IncorrectDataInScript e){
             System.out.println("При обновлении HumanBeing произошла ошибка с комментарием - "+e.getMessage()+", проверьте скрипт");
@@ -46,6 +42,10 @@ public class Update extends Command{
         }
         catch (NumberFormatException e){
             System.out.println("ID представляет собой число.");
+            return false;
+        }
+        catch (NoSuchElementException e){
+            System.out.println(e.getMessage());
             return false;
         }
     }

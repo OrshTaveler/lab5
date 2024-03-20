@@ -1,19 +1,15 @@
 package commands;
 
-import customexceptions.IncorrectDataInScript;
-import initials.HumanBeing;
-import utilities.Asker;
-
-import java.util.ArrayList;
+import utilities.HumanBeingList;
 /**
  * Команда 'remove_at'. Удаляет элемент с введённым.
  * @author Ubica228
  */
 public class RemoveAt extends Command{
-    private ArrayList<HumanBeing> humanBeings;
+    private HumanBeingList humanBeings;
 
 
-    public RemoveAt(ArrayList<HumanBeing> humanBeings){
+    public RemoveAt(HumanBeingList humanBeings){
         super("remove_at","Удаляет людей из списочка по индексу");
         this.humanBeings = humanBeings;
     }
@@ -25,7 +21,7 @@ public class RemoveAt extends Command{
     public boolean execute(String[] arguments) {
         try{
             int index = Integer.parseInt(arguments[1]);
-            humanBeings.remove(index-1);
+            humanBeings.remove(humanBeings.getByIndex(index-1));
         }
         catch (ArrayIndexOutOfBoundsException e){
             System.out.println("Вы не ввели индекс");

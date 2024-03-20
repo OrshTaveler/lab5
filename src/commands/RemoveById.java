@@ -1,19 +1,18 @@
 package commands;
 
-import customexceptions.IncorrectDataInScript;
-import initials.HumanBeing;
-import utilities.Asker;
+import utilities.HumanBeingList;
 
-import java.util.ArrayList;
+import java.util.NoSuchElementException;
+
 /**
  * Команда 'remove_by_id'. Удаляет элемент из коллекции по полю id класса HumanBeing.
  * @author Ubica228
  */
 public class RemoveById extends Command{
-    private ArrayList<HumanBeing> humanBeings;
+    private HumanBeingList humanBeings;
 
 
-    public RemoveById(ArrayList<HumanBeing> humanBeings){
+    public RemoveById(HumanBeingList humanBeings){
         super("remove_by_id","Удаляет людей по ID");
         this.humanBeings = humanBeings;
     }
@@ -25,14 +24,7 @@ public class RemoveById extends Command{
     public boolean execute(String[] arguments) {
         try{
             int id = Integer.parseInt(arguments[1]);
-            for(int i = 0; i<humanBeings.size();i++){
-                if (humanBeings.get(i).getId() == id){
-                    humanBeings.remove(i);
-                    return true;
-                }
-            }
-            System.out.println("Человека с таким id нет");
-            return false;
+            humanBeings.remove(humanBeings.getById(id));
         }
         catch (ArrayIndexOutOfBoundsException e){
             System.out.println("Вы не ввели ID человека");
@@ -42,5 +34,10 @@ public class RemoveById extends Command{
             System.out.println("ID представляет собой число.");
             return false;
         }
+        catch (NoSuchElementException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
     }
 }

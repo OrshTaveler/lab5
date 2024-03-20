@@ -1,19 +1,17 @@
 package commands;
 
-import initials.HumanBeing;
 import utilities.FileManager;
+import utilities.HumanBeingList;
 import utilities.XML;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Map;
 /**
  * Команда 'save'. Сохраняет коллекцию в файл.
  * @author Ubica228
  */
 public class Save extends Command{
-    ArrayList<HumanBeing> humanBeings;
-    public Save(ArrayList<HumanBeing> humanBeings){
+    HumanBeingList humanBeings;
+    public Save(HumanBeingList humanBeings){
         super("save","Сохраняет людей");
         this.humanBeings = humanBeings;
     }

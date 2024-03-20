@@ -1,17 +1,19 @@
 package commands;
 
-import initials.HumanBeing;
+import initials.WeaponType;
+import utilities.HumanBeingList;
 
-import java.util.ArrayList;
+import java.util.NoSuchElementException;
+
 /**
  * Команда 'remove_any_by_weapon_type'. Удаляет первый элемент коллекции у которого поле weaponType совпадает с заданым.
  * @author Ubica228
  */
 public class RemoveAnyByWeaponType extends Command{
-    private ArrayList<HumanBeing> humanBeings;
+    private HumanBeingList humanBeings;
 
 
-    public RemoveAnyByWeaponType(ArrayList<HumanBeing> humanBeings){
+    public RemoveAnyByWeaponType(HumanBeingList humanBeings){
         super("remove_any_by_weapon_type","Удаляет людей по типу оружия");
         this.humanBeings = humanBeings;
     }
@@ -23,17 +25,15 @@ public class RemoveAnyByWeaponType extends Command{
     public boolean execute(String[] arguments) {
         try{
             String weaponType = arguments[1];
-            for(int i = 0; i<humanBeings.size();i++){
-                if (humanBeings.get(i).getWeaponType().toString().equals(weaponType)){
-                    humanBeings.remove(i);
-                    return true;
-                }
-            }
-            System.out.println("Человека с таким оружием нет");
-            return false;
+            humanBeings.getByWeaponType(WeaponType.valueOf(weaponType));
+            return true;
         }
         catch (ArrayIndexOutOfBoundsException e){
             System.out.println("Вы не ввели тип оружия человека");
+            return false;
+        }
+        catch (NoSuchElementException e){
+            System.out.println(e.getMessage());
             return false;
         }
 

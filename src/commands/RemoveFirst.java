@@ -1,17 +1,15 @@
 package commands;
 
-import initials.HumanBeing;
-
-import java.util.ArrayList;
+import utilities.HumanBeingList;
 /**
  * Команда 'remove_first'. Удаляет первый элемент из коллекции.
  * @author Ubica228
  */
 public class RemoveFirst extends Command{
-    private ArrayList<HumanBeing> humanBeings;
+    private HumanBeingList humanBeings;
 
 
-    public RemoveFirst(ArrayList<HumanBeing> humanBeings){
+    public RemoveFirst(HumanBeingList humanBeings){
         super("remove_first","Удаляет первого человека из списочка ");
         this.humanBeings = humanBeings;
     }
@@ -22,7 +20,7 @@ public class RemoveFirst extends Command{
     @Override
     public boolean execute(String[] arguments) {
         try{
-            humanBeings.remove(0);
+            humanBeings.remove(humanBeings.getByIndex(0));
         }
         catch (IndexOutOfBoundsException e){
             return false;

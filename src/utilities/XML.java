@@ -4,8 +4,6 @@ import initials.Car;
 import initials.Coordinates;
 import initials.HumanBeing;
 import initials.WeaponType;
-
-import java.util.ArrayList;
 /**
  * Класс для работы с XML
  * @author Ubica228
@@ -14,8 +12,8 @@ public class XML {
     public static String humanToXML(HumanBeing human){
         return "<human_"+human.getId()+" name='"+human.getName()+"'"+" id='"+human.getId()+"' "+" realHero='"+human.getRealHero()+"' "+" hasToothpick='"+human.getHasToothpick()+"' "+" impactSpeed='"+human.getImpactSpeed()+"' "+" soundtrackName='"+human.getSoundtrackName()+"' "+" weaponType='"+human.getWeaponType()+"' "+" minutesOfWaiting='"+human.getMinutesOfWaiting()+"' X='"+human.getCoordinates().getX() +"' Y='"+human.getCoordinates().getY()+"' carName='"+human.getCar().getName()+"' creationTime='"+human.getCreationDate()+"'"+"/>";
     }
-    public static ArrayList<HumanBeing> XMLToHuman(String[] xmlForm){
-        ArrayList<HumanBeing> humanBeings = new ArrayList<>();
+    public static HumanBeingList XMLToHuman(String[] xmlForm){
+        HumanBeingList humanBeings = new HumanBeingList();
         for(String xmlString:xmlForm){
             int id = Integer.parseInt(xmlString.split("id='")[1].split("'")[0]);
             String name = xmlString.split("name='")[1].split("'")[0];
@@ -36,9 +34,9 @@ public class XML {
         return humanBeings;
 
     }
-    public static String toXML(ArrayList<HumanBeing> Humans){
+    public static String toXML(HumanBeingList humansList){
         String res = "<root>\n";
-        for(HumanBeing x:Humans) res += humanToXML(x) +"\n";
+        for(HumanBeing x:humansList.getHumanBeings()) res += humanToXML(x) +"\n";
         res+="</root>";
         return res;
     }

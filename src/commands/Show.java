@@ -1,23 +1,19 @@
 package commands;
 
-import initials.HumanBeing;
-
-import java.util.ArrayList;
+import utilities.HumanBeingList;
 /**
  * Команда 'show'. Выводит все элементы коллекции.
  * @author Ubica228
  */
 public class Show extends Command{
-    ArrayList<HumanBeing> humanBeings;
-    public Show(ArrayList<HumanBeing> humanBeings){
+    HumanBeingList humanBeings;
+    public Show(HumanBeingList humanBeings){
         super("show","Показывает людей");
         this.humanBeings = humanBeings;
     }
     @Override
     public boolean execute(String[] arguments) {
-        for(HumanBeing humanBeing: humanBeings){
-            System.out.println(humanBeing.toString());
-        }
+        System.out.println(humanBeings.toString());
         return true;
     }
 }
