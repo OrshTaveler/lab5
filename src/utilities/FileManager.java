@@ -3,6 +3,7 @@ package utilities;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 /**
  * Класс для работы с файлами
@@ -30,9 +31,10 @@ public class FileManager {
                 xmlStrings.add(xmlString);
             }
         }
-        catch (FileNotFoundException e){
+        catch (FileNotFoundException | NoSuchElementException e){
             return xmlStrings;
         }
+
         return xmlStrings;
     }
 }

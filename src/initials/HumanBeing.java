@@ -26,6 +26,7 @@ public class HumanBeing {
         this.soundtrackName = soundtrackName;
         this.weaponType = weaponType;
         this.minutesOfWaiting = minutesOfWaiting;
+        this.creationDate = java.time.ZonedDateTime.now();
     }
 
 

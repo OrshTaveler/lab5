@@ -21,7 +21,7 @@ public class XML {
             String name = xmlString.split("name='")[1].split("'")[0];
             double x = Double.parseDouble(xmlString.split("X='")[1].split("'")[0]);
             long y = Long.parseLong(xmlString.split("Y='")[1].split("'")[0]);
-            java.time.LocalDateTime creationDate = java.time.LocalDateTime.parse(xmlString.split("creationTime='")[1].split("'")[0]); //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+            java.time.ZonedDateTime creationDate = java.time.ZonedDateTime.parse(xmlString.split("creationTime='")[1].split("'")[0]); //Поле не может быть null, Значение этого поля должно генерироваться автоматически
             boolean realHero = Boolean.parseBoolean(xmlString.split("realHero='")[1].split("'")[0]);
             boolean hasToothpick = Boolean.parseBoolean(xmlString.split("hasToothpick='")[1].split("'")[0]);
             float impactSpeed = Float.parseFloat(xmlString.split("impactSpeed='")[1].split("'")[0]);
